@@ -11,6 +11,12 @@ export default class Modal extends React.Component {
     }
   }
 
+  componentDidMount() {
+    if (this.props.type == 'Edit'){
+      this.setState({title: this.props.content[0].title, body: this.props.content[0].body})
+    }
+  }
+
   handleTitleChange = (evt) => {
     this.setState({ title: evt.target.value });
   }
@@ -62,9 +68,9 @@ export default class Modal extends React.Component {
   editPageContents = () => {
     return <div>
       <h5>Title</h5>
-      <textarea cols="50" rows="5" contentEditable="contenteditable" value={this.props.content[0].title} onChange={this.handleTitleChange} />
+      <textarea cols="50" rows="5" value={this.state.title} onChange={this.handleTitleChange} />
       <h5>Body</h5>
-      <textarea cols="50" rows="10" value={this.props.content[0].body} onChange={this.handleBodyChange} />
+      <textarea cols="50" rows="10" value={this.state.body} onChange={this.handleBodyChange} />
       <br />
       <button onClick={() => this.updatePost(this.props.content[0].id)}>Update Post</button>
     </div>
